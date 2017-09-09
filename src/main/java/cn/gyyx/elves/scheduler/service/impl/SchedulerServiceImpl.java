@@ -1,19 +1,5 @@
 package cn.gyyx.elves.scheduler.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
-import org.apache.thrift.TException;
-import org.apache.thrift.protocol.TBinaryProtocol;
-import org.apache.thrift.protocol.TProtocol;
-import org.apache.thrift.transport.TSocket;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import cn.gyyx.elves.scheduler.service.ElvesSchedulerService;
 import cn.gyyx.elves.scheduler.util.thrift.AgentService;
 import cn.gyyx.elves.scheduler.util.thrift.Instruct;
@@ -23,8 +9,20 @@ import cn.gyyx.elves.util.ExceptionUtil;
 import cn.gyyx.elves.util.SecurityUtil;
 import cn.gyyx.elves.util.mq.MessageProducer;
 import cn.gyyx.elves.util.mq.PropertyLoader;
-
 import com.alibaba.fastjson.JSON;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
+import org.apache.thrift.TException;
+import org.apache.thrift.protocol.TBinaryProtocol;
+import org.apache.thrift.protocol.TProtocol;
+import org.apache.thrift.transport.TSocket;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName: SchedulerServiceImpl
@@ -85,9 +83,10 @@ public class SchedulerServiceImpl implements ElvesSchedulerService,SchedulerServ
 				Map<String,Object>  result= new HashMap<String,Object>();
 				result.put("flag","false");
 				result.put("error","[410.1]Send Job To Agent Fail");
-				result.put("result","{\"id\":"+id+"}");
-				
-				
+                Map<String,Object>  rs= new HashMap<String,Object>();
+                rs.put("id",id);
+				result.put("result",rs);
+
 				Map<String,Object>  data= new HashMap<String,Object>();
 				String routingKey ="";
 				String serverName="";
